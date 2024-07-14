@@ -27,6 +27,8 @@
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
         <data android:scheme="com.spaceteam42.igniteshoes"/>
+        <data android:scheme="exp+igniteshoes"/>
+        <data android:scheme="igniteshoes"/>
       </intent-filter>
     </activity>
     <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" android:exported="false"/>

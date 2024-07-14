@@ -4,6 +4,8 @@ import { useNavigation } from '@react-navigation/native';
 
 import { HStack, Text, IconButton, CloseIcon, Icon, Pressable } from 'native-base';
 
+import * as Linking from 'expo-linking';
+
 import { Ionicons } from '@expo/vector-icons';
 
 import { OSNotification } from 'react-native-onesignal';
@@ -14,22 +16,39 @@ type Props = {
   onClose: () => void;
 }
 
-type AdditionalDataProps = {
-  route?: string;
-  product_id?: string;
+type CustomOSNotification = {
+  custom: any
+  u: string
 }
 
+// type AdditionalDataProps = {
+//   route?: string;
+//   product_id?: string;
+// }
+
 export function Notification({ data, onClose }: Props) {
-  const navigation = useNavigation()
+  // const navigation = useNavigation()
 
   const handleOnPress = useCallback(() => {
-    const { route, product_id } = data.additionalData as AdditionalDataProps;
+    // NAVEGANDO POR DEEP LINKING
+    const { custom }: CustomOSNotification = JSON.parse(data.rawPayload.toString());
+    const { u: uri }: CustomOSNotification = JSON.parse(custom.toString())
+    
+    if (uri) {
+      Linking.openURL(uri)
 
-    if (route === 'details' && product_id) {
-      navigation.navigate("details", { productId: product_id })
-
-      onClose();
+      onClose()
     }
+
+
+    // NAVEGAR POR ROTAS UTILIZANDO DADOS ADICIONAIS
+    // const { route, product_id } = data.additionalData as AdditionalDataProps;
+
+    // if (route === 'details' && product_id) {
+    //   navigation.navigate("details", { productId: product_id })
+
+    //   onClose();
+    // }
   }, [])
 
   return (
