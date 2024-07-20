@@ -1,7 +1,5 @@
 import { useCallback } from 'react';
 
-import { useNavigation } from '@react-navigation/native';
-
 import { HStack, Text, IconButton, CloseIcon, Icon, Pressable } from 'native-base';
 
 import * as Linking from 'expo-linking';
